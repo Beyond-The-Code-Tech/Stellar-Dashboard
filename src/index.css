@@ -4,20 +4,30 @@
 
 @layer base {
   body {
-    @apply antialiased text-gray-900 dark:text-gray-100;
+    @apply bg-black text-white;
   }
 }
 
 @layer components {
-  .btn {
-    @apply inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+  .stars {
+    @apply fixed top-0 left-0 w-full h-full;
+    background: #000 url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
+    z-index: 0;
   }
 
-  .btn-secondary {
-    @apply inline-flex items-center px-4 py-2 border border-gray-300 text-sm font-medium rounded-md text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500;
+  .twinkling {
+    @apply fixed top-0 left-0 w-full h-full;
+    background: transparent url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png) repeat;
+    z-index: 1;
+    animation: move-background 70s linear infinite;
   }
 
-  .card {
-    @apply bg-white dark:bg-gray-800 overflow-hidden shadow rounded-lg;
+  @keyframes move-background {
+    from {
+      transform: translate3d(0px, 0px, 0px);
+    }
+    to { 
+      transform: translate3d(1000px, 0px, 0px);
+    }
   }
 }

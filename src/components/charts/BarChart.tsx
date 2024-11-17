@@ -58,7 +58,7 @@ export const BarChart: React.FC<BarChartProps> = ({
       .attr('stop-color', '#93C5FD');
 
     // Add bars
-    svg
+    const bars = svg
       .selectAll('rect')
       .data(data)
       .enter()
@@ -67,7 +67,10 @@ export const BarChart: React.FC<BarChartProps> = ({
       .attr('y', innerHeight + margin.top)
       .attr('width', x.bandwidth())
       .attr('fill', 'url(#bar-gradient)')
-      .attr('rx', 4)
+      .attr('rx', 4);
+
+    // Animate bars
+    bars
       .transition()
       .duration(1000)
       .attr('y', d => y(d.value))
@@ -93,12 +96,9 @@ export const BarChart: React.FC<BarChartProps> = ({
       .append('div')
       .attr('class', 'absolute hidden bg-white p-2 rounded shadow-lg text-sm');
 
-    svg
-      .selectAll('rect')
-      .on('mouseover', function(event, d) {
+    bars
+      .on('mouseenter', function(event, d) {
         d3.select(this)
-          .transition()
-          .duration(200)
           .attr('fill', '#3B82F6');
 
         tooltip
@@ -107,14 +107,16 @@ export const BarChart: React.FC<BarChartProps> = ({
           .style('display', 'block')
           .html(`${d.label}: ${d.value}`);
       })
-      .on('mouseout', function() {
+      .on('mouseleave', function() {
         d3.select(this)
-          .transition()
-          .duration(200)
           .attr('fill', 'url(#bar-gradient)');
 
         tooltip.style('display', 'none');
       });
+
+    return () => {
+      tooltip.remove();
+    };
   }, [data, width, height]);
 
   return (

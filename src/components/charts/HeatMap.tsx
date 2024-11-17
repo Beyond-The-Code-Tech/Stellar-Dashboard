@@ -45,7 +45,7 @@ export const HeatMap: React.FC<HeatMapProps> = ({
       .domain([0, d3.max(data, d => d.value) || 0]);
 
     // Add cells
-    svg
+    const cells = svg
       .selectAll('rect')
       .data(data)
       .enter()
@@ -54,7 +54,9 @@ export const HeatMap: React.FC<HeatMapProps> = ({
       .attr('y', d => y(d.y) || 0)
       .attr('width', x.bandwidth())
       .attr('height', y.bandwidth())
-      .attr('fill', 'white')
+      .attr('fill', 'white');
+
+    cells
       .transition()
       .duration(1000)
       .attr('fill', d => color(d.value));
@@ -79,12 +81,9 @@ export const HeatMap: React.FC<HeatMapProps> = ({
       .append('div')
       .attr('class', 'absolute hidden bg-white p-2 rounded shadow-lg text-sm');
 
-    svg
-      .selectAll('rect')
-      .on('mouseover', function(event, d) {
+    cells
+      .on('mouseenter', function(event, d) {
         d3.select(this)
-          .transition()
-          .duration(200)
           .attr('stroke', '#000')
           .attr('stroke-width', 2);
 
@@ -94,14 +93,16 @@ export const HeatMap: React.FC<HeatMapProps> = ({
           .style('display', 'block')
           .html(`${d.x}, ${d.y}: ${d.value}`);
       })
-      .on('mouseout', function() {
+      .on('mouseleave', function() {
         d3.select(this)
-          .transition()
-          .duration(200)
           .attr('stroke', null);
 
         tooltip.style('display', 'none');
       });
+
+    return () => {
+      tooltip.remove();
+    };
   }, [data, width, height]);
 
   return (

@@ -31,7 +31,8 @@ export const PieChart: React.FC<PieChartProps> = ({
       .append('g')
       .attr('transform', `translate(${width / 2},${height / 2})`);
 
-    const path = g
+    // Create paths
+    const paths = g
       .selectAll('path')
       .data(pie(data))
       .enter()
@@ -40,7 +41,10 @@ export const PieChart: React.FC<PieChartProps> = ({
       .attr('fill', (d, i) => color(i.toString()))
       .attr('stroke', 'white')
       .style('stroke-width', '2px')
-      .style('opacity', 0.7)
+      .style('opacity', 0.7);
+
+    // Animate paths
+    paths
       .transition()
       .duration(1000)
       .attrTween('d', function(d: any) {
@@ -66,21 +70,34 @@ export const PieChart: React.FC<PieChartProps> = ({
       .text(d => `${d.data.label} (${d.data.value})`);
 
     // Add hover effects
-    path
-      .on('mouseover', function() {
+    const tooltip = d3
+      .select('body')
+      .append('div')
+      .attr('class', 'absolute hidden bg-white p-2 rounded shadow-lg text-sm');
+
+    paths
+      .on('mouseenter', function(event, d: any) {
         d3.select(this)
           .style('opacity', 1)
-          .transition()
-          .duration(200)
           .attr('transform', 'scale(1.05)');
+
+        tooltip
+          .style('left', `${event.pageX + 10}px`)
+          .style('top', `${event.pageY - 10}px`)
+          .style('display', 'block')
+          .html(`${d.data.label}: ${d.data.value}`);
       })
-      .on('mouseout', function() {
+      .on('mouseleave', function() {
         d3.select(this)
           .style('opacity', 0.7)
-          .transition()
-          .duration(200)
           .attr('transform', 'scale(1)');
+
+        tooltip.style('display', 'none');
       });
+
+    return () => {
+      tooltip.remove();
+    };
   }, [data, width, height]);
 
   return (
