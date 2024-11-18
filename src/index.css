@@ -3,6 +3,10 @@
 @tailwind utilities;
 
 @layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     @apply bg-black text-white;
   }
@@ -33,5 +37,9 @@
 
   .cosmic-gradient {
     @apply bg-gradient-to-br from-purple-900 via-gray-900 to-black;
+  }
+
+  section {
+    scroll-margin-top: 4rem;
   }
 }
