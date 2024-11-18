@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Routes, Route, useLocation } from 'react-router-dom';
 import Navbar from './components/Navbar';
-import { lazy, Suspense } from 'react';
+import { lazy } from 'react';
 import smoothscroll from 'smoothscroll-polyfill';
 import { Helmet } from 'react-helmet';
+import Footer from './components/Footer'; // Import Footer component
 
 const Hero = lazy(() => import('./components/Hero'));
 const Features = lazy(() => import('./components/Features'));
@@ -12,6 +13,7 @@ const Pricing = lazy(() => import('./components/Pricing'));
 const DashboardDemo = lazy(() => import('./components/dashboard/DashboardDemo'));
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
   const location = useLocation();
 
   useEffect(() => {
@@ -27,6 +29,11 @@ function App() {
         }, 100);
       }
     }
+
+    // Simulate a delay in loading components
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 500); // Simulated delay for better user experience
   }, [location]);
 
   return (
@@ -39,12 +46,14 @@ function App() {
         />
       </Helmet>
       <Navbar />
-      <Suspense fallback={<div className="text-center text-white">Loading...</div>}>
+      {isLoading ? (
+        <div className="text-center text-white">Loading...</div> // Optional custom loading state
+      ) : (
         <Routes>
           <Route
             path="/"
             element={
-              <main>
+              <main aria-labelledby="main-content">
                 <Hero />
                 <Features />
                 <CaseStudies />
@@ -53,9 +62,11 @@ function App() {
             }
           />
           <Route path="/demo" element={<DashboardDemo />} />
-          <Route path="*" element={<div className="text-center">Page Not Found</div>} />
+          <Route path="*" element={<div className="text-center text-white">Page Not Found</div>} />
         </Routes>
-      </Suspense>
+      )}
+
+      <Footer /> {/* Include the Footer */}
     </div>
   );
 }
