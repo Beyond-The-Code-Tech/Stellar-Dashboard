@@ -60,7 +60,7 @@ export default function Hero() {
           className="max-w-7xl mx-auto"
         >
           <img
-            src="https://ibb.co/QKhGgKX" // Add the path to your illustration image here
+            src="https://i.ibb.co/pLNp7Ln/demohero.png" // Add the path to your illustration image here
             alt="Software Illustration"
             className="mx-auto w-full md:w-4/5 lg:w-4/5 xl:w-5/5 -mt-6 rounded-lg border-2 border-white border-opacity-35" // Added border and white color
           />
