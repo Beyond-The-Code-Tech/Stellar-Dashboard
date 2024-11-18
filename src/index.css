@@ -10,15 +10,15 @@
 
 @layer components {
   .stars {
-    @apply fixed top-0 left-0 w-full h-full;
+    @apply fixed top-0 left-0 w-full h-full pointer-events-none;
     background: #000 url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/stars.png) repeat;
-    z-index: 0;
+    z-index: -2;
   }
 
   .twinkling {
-    @apply fixed top-0 left-0 w-full h-full;
+    @apply fixed top-0 left-0 w-full h-full pointer-events-none;
     background: transparent url(https://s3-us-west-2.amazonaws.com/s.cdpn.io/1231630/twinkling.png) repeat;
-    z-index: 1;
+    z-index: -1;
     animation: move-background 70s linear infinite;
   }
 
@@ -29,5 +29,9 @@
     to { 
       transform: translate3d(1000px, 0px, 0px);
     }
+  }
+
+  .cosmic-gradient {
+    @apply bg-gradient-to-br from-purple-900 via-gray-900 to-black;
   }
 }

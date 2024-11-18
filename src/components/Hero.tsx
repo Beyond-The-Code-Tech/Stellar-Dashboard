@@ -2,15 +2,13 @@ import React from 'react';
 import { useTranslation } from 'react-i18next';
 import { motion } from 'framer-motion';
 import { ChevronRight, BarChart2, Zap, Globe } from 'lucide-react';
-import InteractiveBackground from './InteractiveBackground';
+import { Link } from 'react-router-dom';
 
 export default function Hero() {
   const { t } = useTranslation();
 
   return (
-    <div className="relative min-h-screen overflow-hidden bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900 via-gray-900 to-black">
-      <InteractiveBackground />
-      
+    <div className="relative min-h-screen bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-purple-900 via-gray-900 to-black">
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-32">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -26,16 +24,18 @@ export default function Hero() {
             {t('description')}
           </p>
           <div className="mt-5 max-w-md mx-auto sm:flex sm:justify-center md:mt-8">
-            <motion.div
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              className="rounded-md shadow"
-            >
-              <a href="#demo" className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 md:py-4 md:text-lg md:px-10">
-                {t('tryDemo')}
-                <ChevronRight className="ml-2 h-5 w-5" />
-              </a>
-            </motion.div>
+            <Link to="/demo">
+              <motion.div
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="rounded-md shadow"
+              >
+                <span className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base font-medium rounded-md text-white bg-purple-600 hover:bg-purple-700 md:py-4 md:text-lg md:px-10">
+                  {t('tryDemo')}
+                  <ChevronRight className="ml-2 h-5 w-5" />
+                </span>
+              </motion.div>
+            </Link>
           </div>
         </motion.div>
 
