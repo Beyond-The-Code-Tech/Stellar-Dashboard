@@ -3,6 +3,7 @@ import { Routes, Route } from 'react-router-dom';
 import Navbar from './Navbar';
 import Hero from './Hero';
 import Features from './Features';
+import CaseStudies from './CaseStudies';
 import Pricing from './Pricing';
 import DashboardDemo from './dashboard/DashboardDemo';
 
@@ -15,6 +16,7 @@ function App() {
           <>
             <Hero />
             <Features />
+            <CaseStudies />
             <Pricing />
           </>
         } />
@@ -23,5 +25,3 @@ function App() {
     </div>
   );
 }
-
-export default App;

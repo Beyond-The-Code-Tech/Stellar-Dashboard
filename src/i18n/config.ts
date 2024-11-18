@@ -13,6 +13,16 @@ const resources = {
       demo: 'Demo',
       pricing: 'Pricing',
       getStarted: 'Get Started',
+      dashboard: {
+        title: 'Analytics Dashboard',
+        timeRange: 'Time Range',
+        theme: 'Theme',
+      },
+      cta: {
+        startFree: 'Start Free Trial',
+        contactSales: 'Contact Sales',
+        watchDemo: 'Watch Demo',
+      },
     },
   },
   es: {
@@ -25,6 +35,16 @@ const resources = {
       demo: 'Demo',
       pricing: 'Precios',
       getStarted: 'Comenzar',
+      dashboard: {
+        title: 'Panel de Analytics',
+        timeRange: 'Rango de Tiempo',
+        theme: 'Tema',
+      },
+      cta: {
+        startFree: 'Comenzar Prueba Gratis',
+        contactSales: 'Contactar Ventas',
+        watchDemo: 'Ver Demo',
+      },
     },
   },
 };
